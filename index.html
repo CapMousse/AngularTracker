@@ -1,0 +1,94 @@
+<doctype html>
+<html>
+    <head>
+        <title>TimeTracker</title>
+        <link rel="stylesheet" href="style/style.css">
+        <meta charset="UTF8">
+    </head>
+    <body ng-app="timetracker">
+        <div id="layout" class="pure-g-r">
+            <aside id="projects" class="pure-u" ng-controller="ProjectsController">
+                <div class="nav-inner">
+                    <div class="pure-menu pure-menu-open pure-menu-vertical">
+                        <span class="pure-menu-heading">
+                            {{ 'Projects' | i18n }}
+                        </span>
+
+                        <ul>
+                            <li ng-repeat="(i, project) in projects" ng-class="{'pure-menu-selected': activeProject == project.id}">
+                                <a href="#" ng-click="openProject(project)" ng-dblclick="editProject(project)" ng-hide="project.edit">
+                                    {{project.name}}
+                                    <span>{{ 'Estimated time' | i18n }} : {{ getTotalTime(project) }}</span>
+                                    <span>{{ 'Actual time' | i18n }} : {{ getTotalTime(project, true) }}</span>
+                                </a>
+                                <input type="text" ng-show="project.edit" ng-model="project.name" ng-enter="saveProject(project, i)" placeholder="{{ 'Project name' | i18n }}">
+                            </li>
+                        </ul>
+                    </div>
+                    <a ng-click="addProject()" class="pure-button pure-button-small pure-button-primary">{{ 'Add project' | i18n }}</a>
+                </div>
+            </aside>
+            <div id="tasks" class="pure-u" ng-controller="TasksController">
+                <div class="pure-menu pure-menu-open pure-menu-vertical">
+                    <a href="#" class="pure-button pure-button-small pure-button-danger" ng-show="activeProject != null" ng-click="deleteProject()">{{ 'Delete project' | i18n }}</a>
+                    <span href="/" class="pure-menu-heading">
+                        {{ 'Tasks' | i18n }}
+                    </span>
+
+                    <ul ng-show="activeProject != null">
+                        <li ng-repeat="(i, task) in projects[activeProject].tasks" ng-class="{'pure-menu-selected': activeTask == task.id}" class="{{getStatus(task)}}">
+                            <a href="#" ng-hide="task.edit" ng-click="openTask(task)" ng-dblclick="editTask(task)">
+                                {{task.name}}
+                                <span ng-show="task.maxTime">{{ 'Estimated time' | i18n }} : {{task.maxTime / 60 | number:0}} h {{task.maxTime % 60 | number }}m</span>
+                                <span ng-show="task.maxTime">{{ 'Actual time' | i18n }} : {{task.currentTime / 60 | number:0}} h {{task.currentTime % 60 | number }}m</span>
+                            </a>
+                            <div ng-show="task.edit"> 
+                                <input type="text" ng-model="task.name" ng-enter="saveTask(task, i)" placeholder="{{ 'Task name' | i18n }}">
+                                <input type="text" ng-model="task.maxTime" ng-enter="saveTask(task, i)" placeholder="{{ 'Task time (in minutes)' | i18n }}">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <a class="pure-button pure-button-small pure-button-warning" ng-show="activeProject != null" ng-click="addTask()">{{ 'Add task' | i18n }}</a>
+            </div>
+            <div id="descriptions" class="pure-u" ng-controller="DescriptionController">
+                <div class="content" ng-show="activeTask != null">
+                    <header class="pure-g">
+                        <div class="pure-u-1-2">
+                            <h1>
+                                <span>{{task.name}}</span>
+                            </h1>
+                        </div>
+                        <div class="pure-u-1-2">
+                            <div class="percent">
+                                <div class="meter" style="width: {{task.currentTime * 100 / task.maxTime}}%"></div>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="pure-g">
+                        <div class="pure-u-1">
+                            <a ng-click="startTimer()" ng-hide="timers[task.id] || !task.maxTime" class="pure-button pure-button-ok">{{ 'Start timer' | i18n }}</a>
+                            <a ng-click="endTimer()" ng-show="timers[task.id]" class="pure-button pure-button-ok">{{ 'Stop timer' | i18n }}</a>
+                            <a href="#" ng-click="deleteTask()" class="pure-button pure-button-danger">{{ 'Delete task' | i18n }}</a>
+                        </div>
+                    </div>
+                    <div class="pure-g description">
+                        <div class="pure-u-1">
+                            <h4>{{ 'Description' | i18n }}</h4>
+                            <p ng-hide="editContent" ng-bind-html-unsafe="task.description | markdown"></p>
+                            <a ng-click="editContent = true" ng-hide="editContent" class="pure-button pure-button-primary">{{ 'Edit' | i18n }}</a>
+                            <textarea ng-show="editContent" ng-model="task.description"></textarea>
+                            <a class="markdown" ng-show="editContent" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">{{ 'Github flavored markdown' | i18n }}</a>
+                            <a ng-click="saveTask()" ng-show="editContent" class="pure-button pure-button-primary">{{ 'Save' | i18n }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="components/showdown/showdown.min.js"></script>
+        <script src="components/rainbow/rainbow.min.js"></script>
+        <script src="components/angular/angular.min.js"></script>
+        <script src="lang/fr.js"></script>
+        <script src="components/app.js"></script>
+    </body>
+</html>
