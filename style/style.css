@@ -195,6 +195,22 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
     background: #2aa198; /* Old browsers */
 }
 
+.credits {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-radius: 5px 0 0 0;
+    background: #333;
+    color: white;
+    font-size: .6em;
+    line-height: .6em;
+    padding: .5em;
+}
+
+.credits a {
+    color: inherit;
+}
+
 
 /** Rainbow **/
 /**
