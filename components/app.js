@@ -122,7 +122,7 @@ angular.module('timetracker', [])
         for(i = project.tasks.length - 1; i >= 0; i--) {
             val = current ? project.tasks[i].currentTime : project.tasks[i].maxTime;
 
-            if (val !== false) {
+            if (val !== false && val !== null) {
                 totalTime += parseInt(val, 10);
             }
         }
