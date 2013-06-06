@@ -85,6 +85,19 @@
                 </div>
             </div>
         </div>
+        <div class="help" ng-cloak ng-show="showModal && isFirstInit()">
+            <div class="modal">
+                <a href="#" ng-click="closeModal()" class="close">x</a>
+                <h2>{{ 'First start' | i18n }}</h2>
+                <ul>
+                    <li>{{ 'To edit a project, double click on it' | i18n}}</li>
+                    <li>{{ 'To edit a task, same as project, double click on it' | i18n}}</li>
+                    <li>{{ 'You can use Markdown on task description' | i18n}}</li>
+                    <li>{{ 'Data are synced only on this browser and on this PC' | i18n}}</li>
+                </ul>
+                <a class="pure-button pure-button-primary" href="#" ng-click="closeModal()">{{ 'Close' | i18n }}</a>
+            </div>
+        </div>
         <div class="credits">Created by <a href="https://twitter.com/capitainemousse">Jeremy Barbe</a> - <a href="https://github.com/CapMousse/AngularTracker">Fork me on github</a></div>
         <script src="components/showdown/showdown.min.js"></script>
         <script src="components/rainbow/rainbow.min.js"></script>

@@ -18,5 +18,11 @@ window.lang.fr = {
     'Save' : 'Sauvegarder',
     'Github flavored markdown' : 'Gonflé avec Markdown',
     'Estimated time' : 'Temps estimé',
-    'Actual time' : 'Temps passé'
+    'Actual time' : 'Temps passé',
+    'First start' : 'Premier démarage',
+    'To edit a project, double click on it' : 'Pour éditer un projet, double cliquez dessus',
+    'To edit a task, same as project, double click on it' : 'Pour éditer une tache, double cliquez aussi dessus',
+    'You can use Markdown on task description' : 'Vous pouvez utilisez du Markdown pour les descriptions',
+    'Data are synced only on this browser and on this PC' : 'Les données ne sont conservés que sur ce navigateur',
+    'Close' : 'Fermer'
 };

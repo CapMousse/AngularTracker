@@ -74,12 +74,24 @@ angular.module('timetracker', [])
     };
 })
 
-.controller('ProjectsController', function($rootScope, $scope, $location, localStorageService){
+.run(function($rootScope, localStorageService){
     $rootScope.projects = localStorageService.get('timetracker') || [];
     $rootScope.timers = {};
     $rootScope.activeProject = null;
     $rootScope.activeTask = null;
+    $rootScope.showModal = true;
 
+    $rootScope.isFirstInit = function(){
+        return localStorageService.get('isFirstInit') === null;
+    };
+
+    $rootScope.closeModal = function(){
+        localStorageService.set('isFirstInit', true);
+        $rootScope.showModal = false;
+    };
+})
+
+.controller('ProjectsController', function($rootScope, $scope, $location, localStorageService){
     $scope.addProject = function(){
         var project = {
             name: '',

@@ -211,6 +211,34 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
     color: inherit;
 }
 
+.help {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.help .modal {
+    position: relative;
+    border-radius: 5px;
+    padding: 1em;
+    margin: 2em auto;
+    width: 500px;
+    background: white;
+}
+
+.help .modal .close {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 1em;
+    line-height: 1em;
+    text-decoration: none;
+    color: black;
+}
+
 
 /** Rainbow **/
 /**
