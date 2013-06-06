@@ -215,10 +215,11 @@ angular.module('timetracker', [])
     };
 
     $scope.deleteTask = function(){
+        $scope.endTimer($scope.task.id);
         $rootScope.projects[$rootScope.activeProject].tasks.splice($scope.task.id, 1);
         localStorageService.set('timetracker', $rootScope.projects);
         $rootScope.activeTask = null;
-    }
+    };
 
     $scope.startTimer = function(){
         var project = parseInt($rootScope.activeProject, 10);
@@ -234,8 +235,10 @@ angular.module('timetracker', [])
         }, 60000);
     };
 
-    $scope.endTimer = function(){
-        clearInterval($rootScope.timers[$rootScope.activeTask]);
+    $scope.endTimer = function(id){
+        id = (id !== void(0)) ? id : $rootScope.activeTask;
+
+        clearInterval($rootScope.timers[id]);
         delete $rootScope.timers[$rootScope.activeTask];
     };
 });
