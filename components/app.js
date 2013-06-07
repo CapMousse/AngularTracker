@@ -202,6 +202,14 @@ angular.module('timetracker', [])
 
         return status;
     };
+
+    $scope.getTime = function(task) {
+        return Math.floor((task.maxTime || 0) / 60) + 'h ' + ((task.maxTime || 0) % 60) + 'm';
+    };
+
+    $scope.getCurrentTime = function(task) {
+        return Math.floor((task.currentTime || 0) / 60) + 'h ' + ((task.currentTime || 0) % 60) + 'm';
+    };
 })
 
 .controller('DescriptionController', function($rootScope, $scope, $location, $window, localStorageService){

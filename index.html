@@ -39,8 +39,8 @@
                         <li ng-repeat="(i, task) in projects[activeProject].tasks" ng-class="{'pure-menu-selected': activeTask == task.id}" class="{{getStatus(task)}}">
                             <a href="#" ng-hide="task.edit" ng-click="openTask(task)" ng-dblclick="editTask(task)">
                                 {{task.name}}
-                                <span ng-show="task.maxTime">{{ 'Estimated time' | i18n }} : {{task.maxTime / 60 | number:0}} h {{task.maxTime % 60 | number }}m</span>
-                                <span ng-show="task.maxTime">{{ 'Actual time' | i18n }} : {{task.currentTime / 60 | number:0}} h {{task.currentTime % 60 | number }}m</span>
+                                <span ng-show="task.maxTime">{{ 'Estimated time' | i18n }} : {{ getTime(task) }}</span>
+                                <span ng-show="task.maxTime">{{ 'Actual time' | i18n }} : {{ getCurrentTime(task) }}</span>
                             </a>
                             <div ng-show="task.edit"> 
                                 <input type="text" ng-model="task.name" ng-enter="saveTask(task, i)" placeholder="{{ 'Task name' | i18n }}">
